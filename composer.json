@@ -1,0 +1,28 @@
+{
+    "name": "jeancx/MapaAlerta",
+    "type":"framework",
+    "description": "Desenvolvimento de sistema de ocorrencias com banco de dados geografico PostGis, utilizando o Google Maps como API., Trabalho de Banco de Dados M3 Ciência da Computação UNIVALI",
+    "keywords": ["MapaAlerta","univali","jeancf","router"],
+    "homepage": "http://jeancf.com.br",
+    "license": "MIT",
+    "authors":[
+        {
+          "name": "Jean Carlos Farias",
+          "email": "contato@jeancf.com.br",
+          "homepage": "http://www.jeancf.com.br/"
+        }
+    ],
+    "require":{
+        "php":">=5.3.0",
+        "slim/slim":"2.*",
+        "slim/views":"0.1.*",
+        "twig/twig":"1.*",
+        "twig/extensions": "*",
+        "monolog/monolog": "1.*"
+    },
+    "autoload":{
+        "psr-0":{
+            "": ""
+        }
+    }
+}

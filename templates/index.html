@@ -1,0 +1,199 @@
+{% extends "layouts/main.html" %}
+
+{% block title %} - {% endblock %}
+
+{% block styles %}
+{% endblock %}
+
+{% block content %}
+
+<div id="map-canvas"></div>
+<div class="container-fluid" id="main">
+    <div class="row">
+        <div class="col-xs-4" id="left">
+
+            <div id="my-tab-content" class="tab-content">
+
+                <div class="tab-pane active" id="ocorrencias">
+                    <h3>Ocorrencias <a class="btn btn-primary pull-right" href="#form_ocorrencia" data-toggle="tab"
+                                       id="addOcorrencia"><i
+                            class="fa fa-plus"></i> </a></h3>
+
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <table id="ocorrenciasTable"
+                                   data-toggle="table"
+                                   data-toolbar="#toolbar"
+                                   data-show-refresh="true"
+                                   data-show-toggle="true"
+                                   data-show-columns="true"
+                                   data-url="{{url}}/api/ocorrencias">
+                                <thead>
+                                <tr>
+                                    <th data-field="bairro">Bairro</th>
+                                    <th data-field="nome">Ocorrencia</th>
+                                    <th data-field="actions">Ações</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <button class="btn btn-primary" type="submit" onclick="window.open('{{url}}/api/ocorrencias.kml')">Baixar KML</button>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="bairros">
+                    <h3>Bairros <a class="btn btn-primary pull-right" href="#form_bairro" data-toggle="tab"
+                                   id="addBairro"><i class="fa fa-plus"></i> </a></h3>
+
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <table id="bairrosTable"
+                                   data-toggle="table"
+                                   data-height="100%"
+                                   data-toolbar="#toolbar"
+                                   data-show-refresh="true"
+                                   data-show-toggle="true"
+                                   data-show-columns="true"
+                                   data-url="{{url}}/api/bairros">
+                                <thead>
+                                <tr>
+                                    <th data-field="nome">Nome</th>
+                                    <th data-field="ocorrencias">Ocorrências</th>
+                                    <th data-field="actions">Ações</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <button class="btn btn-primary" type="submit" onclick="window.open('{{url}}/api/bairros.kml')">Baixar KML</button>
+                    </div>
+                </div>
+
+
+                <div class="tab-pane" id="form_ocorrencia">
+                    <form class="form-horizontal" id="formOcorrencia">
+                        <fieldset>
+
+                            <!-- Form Name -->
+                            <legend>Formulário de Ocorrencia</legend>
+
+                            <div class="row" id="alertaOcorrencia"></div>
+
+                            <!-- Select Basic -->
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="control-label" for="bairroOcorrencia">Bairro</label>
+                                    <select id="bairroOcorrencia" name="bairroOcorrencia" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="control-label" for="nomeOcorrencia">Título</label>
+                                    <input id="nomeOcorrencia" name="nomeOcorrencia" type="text" placeholder="Título"
+                                           class="form-control input-md" required="">
+                                </div>
+                            </div>
+
+                            <!-- Textarea -->
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="control-label" for="descricaoOcorrencia">Descrição da
+                                        Ocorrênçia</label>
+                                    <textarea class="form-control" id="descricaoOcorrencia" name="descricaoOcorrencia"
+                                              rows="15"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label" for="latOcorrencia">LAT:</label>
+                                    <input id="latOcorrencia" name="latOcorrencia" type="text" placeholder="LATITUDE"
+                                           class="form-control input-md" required="">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="control-label" for="longOcorrencia">LONG:</label>
+                                    <input id="longOcorrencia" name="longOcorrencia" type="text" placeholder="LONGITUDE"
+                                           class="form-control input-md" required="">
+                                </div>
+                            </div>
+
+                            <!-- Button (Double) -->
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <button id="salvaOcorrencia" name="salvaOcorrencia"
+                                            class="btn btn-success pull-right">Salvar
+                                    </button>
+                                    <button id="cancelaOcorrencia" name="cancelaOcorrencia"
+                                            class="btn btn-danger pull-right" style="margin-right: 10px">Cancelar
+                                    </button>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </form>
+
+                </div>
+
+                <div class="tab-pane" id="form_bairro">
+                    <form class="form-horizontal" id="formBairro">
+                        <fieldset>
+
+                            <!-- Form Name -->
+                            <legend>Formulário de Bairro</legend>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="control-label" for="nomeBairro">Título</label>
+                                    <input id="nomeBairro" name="nomeBairro" type="text" placeholder="Título"
+                                           class="form-control input-md" required="">
+                                </div>
+                            </div>
+
+                            <div class="well" id="bairroPolygon">
+
+                            </div>
+
+                            <!-- Button (Double) -->
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <button type="submit" id="salvaBairro" name="salvaBairro"
+                                            class="btn btn-success pull-right">Salvar
+                                    </button>
+                                    <button type="button" id="resetPath" name="resetPath"
+                                            class="btn btn-danger pull-right" style="margin-right: 10px">Limpar Poligono
+                                    </button>
+                                    <button type="button" id="showPath" name="showPath"
+                                            class="btn btn-warning pull-right" style="margin-right: 10px">Mostrar
+                                        Caminho
+                                    </button>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </form>
+
+                </div>
+
+            </div>
+            <div class="col-xs-8"><!--map-canvas will be postioned here--></div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+{% endblock %}

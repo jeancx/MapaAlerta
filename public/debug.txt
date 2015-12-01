@@ -1,0 +1,7 @@
+Array
+(
+    [bairro] => 1
+    [nome] => Assalto
+    [ponto] => POINT(-22.963214 -43.186341)
+    [descricao] => 
+)
